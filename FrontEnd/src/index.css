@@ -1,0 +1,135 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(50, 144, 231);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  min-height: 87vh;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.welcome {
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 80px;
+
+}
+.description {
+  flex: 1;
+  padding: 30px;
+  background-color: rgb(50, 133, 231);
+  border-radius: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.logoname {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+.message {
+  text-align: center;
+}
+.teethlogo {
+  width: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+.create-account {
+  flex: 1;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-account h2 {
+  text-align: center;
+  font-size: 20px;
+  color: #333;
+  margin-top: 50px;
+}
+.createaccount {
+  margin-bottom: 60px;
+}
+.input-box {
+  margin-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.input-box input {
+  width: 70%;
+  margin-left: 95px;
+  padding: 12px;
+  border: 1px solid #75adf5;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.create-account button[type="submit"] {
+  width: 60%;
+  padding: 12px;
+  background-color: #3280e7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-left: 145px;
+}
+
+.create-account button[type="submit"]:hover {
+  background-color: #2977d9;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.google {
+  cursor: pointer;
+  font-size: 25px;
+  background-color: rgb(221, 75, 57);
+  border-radius: 7px;
+  color: rgb(255, 255, 255);
+  border: none;
+  text-align: center;
+  height: 36px;
+  width: 40px;
+  margin-left: 250px;
+}
+
+.google:hover {
+  background-color: rgb(186, 62, 47);
+  opacity: 0.8;
+}
+.facebook {
+  background-color: #3b5998;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 7px;
+  font-size: 20px;
+  height: 36px;
+  width: 40px;
+  font-weight: bold;
+  margin-left: 50px;
+}
+
+.facebook:hover {
+  background-color: #2d4373;
+  opacity: 0.8;
+}
