@@ -31,8 +31,9 @@ In our app, authentication plays a crucial role in ensuring the security and pri
 ![image](https://github.com/Panhayuthh/DenTeethAuthenication/assets/131462899/80f569b9-706d-4365-8859-8570337dfd50)
 
 - Registration Interface :
-![image](https://github.com/Panhayuthh/DenTeethAuthenication/assets/131462899/08ac6b32-6d2c-4d57-8ce5-ffee391cd1ce)
-
+  
+![image](https://github.com/phanreach/rean/blob/main/login.png)
+- It will show an error message if user input does not match the format.
 
 
 ## Login Process:
