@@ -1,6 +1,5 @@
-import { useState } from "react"; // Since you're not using React directly in the component, you can import useState directly
-
-import "./App.css"; // Import your CSS file
+import { useState } from "react";
+import "./App.css";
 import teetlogo from "./assets/teet.png";
 
 function App() {
@@ -10,13 +9,9 @@ function App() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  // const handleGoogleLogin = () => {
-  //   window.location.href = "https://mail.google.com/mail/u/0/";
-  // };
-  // const handleFacebookLogin = () => {
-  //   window.location.href = "https://www.facebook.com/";
-  // };
+  const [emailForReset, setEmailForReset] = useState("");
+  const [showResetForm, setShowResetForm] = useState(false);
+  const [resetMessage, setResetMessage] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -33,6 +28,9 @@ function App() {
       case "confirmPassword":
         setConfirmPassword(value);
         break;
+      case "emailForReset":
+        setEmailForReset(value);
+        break;
       default:
         break;
     }
@@ -43,11 +41,9 @@ function App() {
     const registerRequest = { username, email, password };
 
     // Check if the password contains special characters
-
     const specialChars = /[!@#$%^&*()_+\-={};':"\\|,.<>?]+/;
     if (!specialChars.test(password)) {
       setErrorMessage("Password must contain at least one special character.");
-
       return; // Stop further execution
     }
 
@@ -66,6 +62,36 @@ function App() {
   const handleLoginFormSwitch = () => {
     setShowLoginForm(!showLoginForm);
     setErrorMessage(""); // Clear error message when switching forms
+    setShowResetForm(false); // Ensure reset form is hidden
+  };
+
+  const handlePasswordReset = (event) => {
+    event.preventDefault();
+    fetch("http://localhost:8080/api/v1/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: emailForReset }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setResetMessage("Password reset link has been sent to your email.");
+        } else {
+          setResetMessage(
+            "Failed to send password reset link. Please try again."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error during password reset request:", error);
+        setResetMessage("An error occurred. Please try again.");
+      });
+  };
+
+  const handleResetFormSwitch = () => {
+    setShowResetForm(!showResetForm);
+    setErrorMessage("");
+    setResetMessage("");
   };
 
   const handleLogin = (event) => {
@@ -102,78 +128,102 @@ function App() {
         <img className="teethlogo" src={teetlogo} alt="teeth logo" />
         <h2 className="logoname">Denteeth</h2>
         <p className="description">
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
-          It's a website that can help users by recommending <br />
-          a solution or helping users make an appointment <br />
-          with a doctor nearby.
+          It is a website that can help users by recommending a solution or
+          helping users make an appointment with a doctor nearby.
         </p>
       </div>
       <div className="create-account">
         <h2 className="createaccount">
-          {showLoginForm ? "Login to Your Account" : "Create Your Account"}
+          {showResetForm
+            ? "Reset Your Password"
+            : showLoginForm
+            ? "Login to Your Account"
+            : "Create Your Account"}
         </h2>
-        <form onSubmit={showLoginForm ? handleLogin : handleSignUp}>
-          {showLoginForm ? null : (
+        {showResetForm ? (
+          <form onSubmit={handlePasswordReset}>
             <div className="input-box">
               <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={username}
+                type="email"
+                name="emailForReset"
+                placeholder="Email Address"
+                value={emailForReset}
                 onChange={handleInputChange}
                 required
               />
             </div>
-          )}
-          <div className="input-box">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="input-box">
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          {!showLoginForm && (
+            <button type="submit">Reset Password</button>
+            {resetMessage && <p className="error-message">{resetMessage}</p>}
+            <h5 className="message">
+              <button type="button" onClick={handleResetFormSwitch}>
+                Back to Login
+              </button>
+            </h5>
+          </form>
+        ) : (
+          <form onSubmit={showLoginForm ? handleLogin : handleSignUp}>
+            {!showLoginForm && (
+              <div className="input-box">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={username}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            )}
+            <div className="input-box">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
             <div className="input-box">
               <input
                 type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
+                name="password"
+                placeholder="Password"
+                value={password}
                 onChange={handleInputChange}
                 required
               />
             </div>
-          )}
-          <button type="submit">{showLoginForm ? "Login" : "Sign Up"}</button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <h5 className="message">
-            {showLoginForm
-              ? "Don't have an account? "
-              : "Already have an account? "}
-            <button type="button" onClick={handleLoginFormSwitch}>
-              {showLoginForm ? "Sign up" : "Login"}
-            </button>
-          </h5>
-          {/* <button className="google" onClick={handleGoogleLogin}>
-            G
-          </button>
-          <button className="facebook" onClick={handleFacebookLogin}>
-            f
-          </button> */}
-        </form>
+            {!showLoginForm && (
+              <div className="input-box">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            )}
+            <button type="submit">{showLoginForm ? "Login" : "Sign Up"}</button>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <h5 className="message">
+              {showLoginForm
+                ? "Don't have an account? "
+                : "Already have an account? "}
+              <button type="button" onClick={handleLoginFormSwitch}>
+                {showLoginForm ? "Sign up" : "Login"}
+              </button>
+            </h5>
+            {showLoginForm && (
+              <button className= "forget-password" type="button" onClick={handleResetFormSwitch}>
+                Forget password?
+              </button>
+            )}
+
+          </form>
+        )}
       </div>
     </div>
   );

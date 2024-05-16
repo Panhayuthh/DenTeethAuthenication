@@ -1,29 +1,5 @@
 import React from 'react';
 
-// const GoogleButton = () => {
-//   const handleGoogleLogin = () => {
-//     window.location.href = 'https://mail.google.com/mail/u/0/';
-//   };
-
-//   return (
-//     <button className='google' onClick={handleGoogleLogin}>
-//       G
-//     </button>
-//   );
-// };
-
-// const FacebookButton = () => {
-//   const handleFacebookLogin = () => {
-//     window.location.href = 'https://www.facebook.com/';
-//   };
-
-//   return (
-//     <button className='facebook' onClick={handleFacebookLogin}>
-//       f
-//     </button>
-//   );
-// };
-
 const Login = ({ errorMessage, handleInputChange, handleSignUp, handleLoginFormSwitch, handleLogin, showLoginForm }) => {
   return (
     <div className="container">
@@ -63,8 +39,7 @@ const Login = ({ errorMessage, handleInputChange, handleSignUp, handleLoginFormS
               {showLoginForm ? 'Sign up' : 'Login'}
             </button>
           </h5>
-          {/* <GoogleButton />
-          <FacebookButton /> */}
+          
         </form>
       </div>
     </div>
